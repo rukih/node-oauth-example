@@ -30,8 +30,14 @@ Ini halaman welcome.
 			// Once we get the response (which has many fields)
 			// Documented here: https://developer.github.com/v3/users/#get-the-authenticated-user
 			// Write "Welcome <user name>" to the documents body
-			const nameNode = document.createTextNode(`Welcome, ${res.name}`)
+			const nameNode = document.createTextNode(`Welcome, ${res.login}`)
+			console.log(res);
+			const photoNode = document.createElement("img");
+			photoNode.setAttribute(`src`,`${res.avatar_url}`);
 			document.body.appendChild(nameNode)
+			document.body.appendChild(document.createElement("br"))
+			document.body.appendChild(photoNode);
+
 		})
 </script>
 
