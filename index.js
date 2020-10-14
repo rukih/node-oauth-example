@@ -1,13 +1,23 @@
-// Import the express lirbary
+// Import yg dubutuhkan
 const express = require('express')
-
-// Import the axios library, to make HTTP requests
 const axios = require('axios')
+const https = require('https')
+const fs = require('fs')
 
 // This is the client ID and client secret that you obtained
 // while registering the application
 const clientID = '155e3744b9c02706e642'
 const clientSecret = '7c6cec7b3997df19ad889e4a838da2c710e03923'
+
+//tambahan untuk enable https:
+
+const port = 9000;
+var key = fs.readFileSync('selfsigned.key');
+var cert = fs.readFileSync('selfsigned.crt');
+var options = {
+  key: key,
+  cert: cert
+};
 
 // Create a new express application and use
 // the express static middleware, to serve all files
@@ -40,5 +50,9 @@ app.get('/oauth/redirect', (req, res) => {
   })
 })
 
+var server = https.createServer(options, app);
+
 // Start the server on your chosen port
-app.listen(9000)
+server.listen(port, () => {
+  console.log("server starting on port : " + port)
+});
